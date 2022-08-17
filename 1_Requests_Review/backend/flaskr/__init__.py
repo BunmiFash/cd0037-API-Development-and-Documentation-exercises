@@ -74,7 +74,7 @@ def create_app(test_config=None):
             abort(400)
 
     @app.route("/books/<int:book_id>", methods=["DELETE"])
-    def delete_book(book_id):
+    def delete_book(book_id):   
         try:
             book = Book.query.filter(Book.id == book_id).one_or_none()
 
@@ -82,6 +82,8 @@ def create_app(test_config=None):
                 abort(404)
 
             book.delete()
+
+    
             selection = Book.query.order_by(Book.id).all()
             current_books = paginate_books(request, selection)
 
